@@ -114,6 +114,8 @@ def extract_features(
 
 def _build_loader(dataset_name: str, data_root: str, batch_size: int, num_workers: int):
     """Minimal DataLoader builder.  Extend to support all 11 datasets."""
+    import os
+
     try:
         import torch
         from torchvision import transforms, datasets
@@ -129,8 +131,6 @@ def _build_loader(dataset_name: str, data_root: str, batch_size: int, num_worker
         transforms.Normalize(mean=[0.485, 0.456, 0.406],
                              std=[0.229, 0.224, 0.225]),
     ])
-
-    import os
 
     dataset_path = os.path.join(data_root, dataset_name)
     dataset = datasets.ImageFolder(root=dataset_path, transform=transform)

@@ -172,6 +172,7 @@ class TVT:
         labels: np.ndarray,
         *,
         train_features_by_model: Optional[Dict[str, np.ndarray]] = None,
+        train_labels: Optional[np.ndarray] = None,
         val_features_by_model: Optional[Dict[str, np.ndarray]] = None,
         val_labels: Optional[np.ndarray] = None,
     ) -> Dict[str, float]:
@@ -184,16 +185,22 @@ class TVT:
         ----------
         features_by_model:
             Mapping ``{model_name: feature_matrix}`` where each feature matrix
-            has shape ``(N, d_m)``.  Labels are shared across models.
+            has shape ``(N, d_m)``.  Labels are shared across models and are
+            used by the global and variability metrics (which operate on the full
+            combined feature set) as well as the random train/val split when no
+            explicit split is provided.
         labels:
-            Integer class labels ``(N,)``.
+            Integer class labels ``(N,)`` for the full feature set.
         train_features_by_model:
-            Optional per-model train split.  When supplied, *val_features_by_model*
-            and *val_labels* must also be provided.
+            Optional per-model train split.  When supplied, *train_labels*,
+            *val_features_by_model*, and *val_labels* must also be provided.
+        train_labels:
+            Labels for the train split ``(N_train,)``.  Required when
+            *train_features_by_model* is provided.
         val_features_by_model:
             Optional per-model val split.
         val_labels:
-            Labels for the val split (ignored when train/val not supplied).
+            Labels for the val split ``(N_val,)``.
 
         Returns
         -------
@@ -204,6 +211,10 @@ class TVT:
         raw: Dict[str, Tuple[float, float, float]] = {}
 
         use_explicit_split = train_features_by_model is not None
+        if use_explicit_split and train_labels is None:
+            raise ValueError(
+                "train_labels must be provided when train_features_by_model is given."
+            )
         for name in model_names:
             X = features_by_model[name]
             if use_explicit_split:
@@ -211,7 +222,7 @@ class TVT:
                     X,
                     labels,
                     train_X=train_features_by_model[name],
-                    train_y=labels,
+                    train_y=train_labels,
                     val_X=val_features_by_model[name],
                     val_y=val_labels,
                 )

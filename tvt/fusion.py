@@ -67,12 +67,11 @@ def _fuse_pca(normed: np.ndarray) -> np.ndarray:
     eigenvalues, eigenvectors = np.linalg.eigh(cov)
     # Leading eigenvector corresponds to the *largest* eigenvalue.
     leading = eigenvectors[:, np.argmax(eigenvalues)]
-    # Sign convention: weights must be non-negative.
-    if leading.sum() < 0:
-        leading = -leading
-    if np.any(leading < 0):
-        leading = np.abs(leading)
-    weights = leading / leading.sum()
+    # Sign convention: apply abs directly to ensure non-negative weights.
+    # The eigenvector is determined only up to sign; taking abs is the simplest
+    # principled way to guarantee non-negative weights.
+    weights = np.abs(leading)
+    weights = weights / weights.sum()
     return normed @ weights
 
 
