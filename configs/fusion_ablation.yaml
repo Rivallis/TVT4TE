@@ -1,0 +1,46 @@
+# Fusion ablation configuration.
+# Evaluates all four fusion schemes on the benchmark.
+
+pca_dim: 64
+p: 1
+seed: 42
+train_frac: 0.8
+
+fusion_schemes:
+  - "arith"
+  - "geo"
+  - "pca"
+  - "rank"
+
+# Partial combinations are handled in the benchmark harness by masking views.
+ablations:
+  - name: "VAR only"
+    views: ["var"]
+    fusion: "geo"
+  - name: "Global only"
+    views: ["global"]
+    fusion: "geo"
+  - name: "Local only"
+    views: ["local"]
+    fusion: "geo"
+  - name: "Local + Global"
+    views: ["local", "global"]
+    fusion: "geo"
+  - name: "Local + VAR"
+    views: ["local", "var"]
+    fusion: "geo"
+  - name: "Global + VAR"
+    views: ["global", "var"]
+    fusion: "geo"
+  - name: "PCA fusion"
+    views: ["local", "global", "var"]
+    fusion: "pca"
+  - name: "Rank mean"
+    views: ["local", "global", "var"]
+    fusion: "rank"
+  - name: "Arithmetic mean"
+    views: ["local", "global", "var"]
+    fusion: "arith"
+  - name: "Geometric mean"
+    views: ["local", "global", "var"]
+    fusion: "geo"
