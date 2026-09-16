@@ -31,65 +31,6 @@ The details can be referred at the following URL:
 https://drive.google.com/file/d/1UoBPdE2rCalktXbS_CVu7y1jwZTDfzwC/view?usp=drive_link
 
 
-## Installation
-
-```bash
-git clone https://github.com/Rivallis/TVT4TE.git
-cd TVT4TE
-pip install -e .
-```
-
-For feature extraction (requires `timm` + `torchvision`):
-
-```bash
-pip install -e ".[extract]"
-```
-
-For plotting figures:
-
-```bash
-pip install -e ".[plot]"
-```
-
----
-
-## Quick start
-
-```python
-from tvt import TVT, KernelRegression
-import numpy as np
-
-# Pool-level scoring (correct path — normalisation is pool-relative)
-scorer = TVT(pca_dim=64, p=1, fusion="geo")
-features_by_model = {
-    "resnet50": np.random.randn(500, 2048).astype("float32"),
-    "vit_b":    np.random.randn(500, 768).astype("float32"),
-}
-labels = np.random.randint(0, 10, 500)
-scores = scorer.fit_score(features_by_model, labels)
-# {'resnet50': 0.xxx, 'vit_b': 0.xxx}
-
-# Single-view local metric (paper-verbatim KernelRegression)
-kr = KernelRegression(args=None)
-l = kr.score(train_features, train_labels, val_features, val_labels)
-```
-
----
-
-## CLI
-
-```
-tvt extract   --model <name> --dataset <name> --data-root <path> --out <path>
-tvt score     --features <path> --labels <path> --config <yaml>
-tvt benchmark --config configs/default.yaml --out results/
-tvt bench-fusion      --config configs/fusion_ablation.yaml
-tvt bench-sensitivity --config configs/sensitivity.yaml
-```
-
-Run `tvt --help` or `tvt <command> --help` for full flag documentation.
-
----
-
 ## Results
 
 ### Main comparison — weighted Kendall's τ_w
