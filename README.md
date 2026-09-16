@@ -15,7 +15,19 @@ evaluation versus 86.5 s for SFDA.
 ---
 
 ## Supplementary materials
-Additional information relevant to the content of this manuscript is available at the following URL: 
+We provide additional information relevant to this study on the following aspects:
+
+Supplementary content overview
+A: Datasets employed for evaluating transferability estimation metrics
+B: Architectures of pretrained models
+C: Extended pool of pretrained models for transferability estimation benchmarking
+D: Fine-tuning procedures on downstream tasks
+E: Python implementations of the proposed local discriminativity metric for transferability estimation
+F: Correlation analyses between TVT scores and fine-tuning accuracies across tasks
+G: Importance analyses of individual and combined metrics for transferability estimation
+
+
+The details can be referred at the following URL: 
 https://drive.google.com/file/d/1UoBPdE2rCalktXbS_CVu7y1jwZTDfzwC/view?usp=drive_link
 
 
