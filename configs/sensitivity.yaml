@@ -1,0 +1,13 @@
+# Hyperparameter sensitivity configuration.
+# Grid: PCA dimension × Schatten p (§7.4).
+
+seed: 42
+train_frac: 0.8
+fusion: "geo"
+
+pca_dims: [16, 32, 64, 128]
+p_values: [1, 2]
+
+# Expected results (from paper):
+# p=1: dim=16 → 0.571 | dim=32 → 0.638 | dim=64 → 0.666 | dim=128 → 0.650
+# p=2: dim=16 → 0.584 | dim=32 → 0.622 | dim=64 → 0.651 | dim=128 → 0.645
