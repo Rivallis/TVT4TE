@@ -59,6 +59,12 @@ def evaluate(
         and ``"overall"``.
     """
     datasets = sorted(set(tvt_scores.keys()) & set(gt_accuracies.keys()))
+    if not datasets:
+        raise ValueError(
+            "No common datasets found between tvt_scores and gt_accuracies.  "
+            f"tvt_scores keys: {sorted(tvt_scores.keys())}, "
+            f"gt_accuracies keys: {sorted(gt_accuracies.keys())}."
+        )
     if model_names is None:
         first_ds = datasets[0]
         model_names = sorted(

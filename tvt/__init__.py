@@ -31,7 +31,7 @@ import numpy as np
 
 from .fusion import fuse
 from .metrics.global_ import GlobalDiscriminability
-from .metrics.local import LocalDiscriminability
+from .metrics.local import KernelRegression, LocalDiscriminability
 from .metrics.variability import FeatureVariability
 
 __all__ = ["TVT", "KernelRegression"]
@@ -299,7 +299,3 @@ class TVT:
             normed = raw  # un-normalised
 
         return float(fuse(normed, scheme=self.fusion)[0])
-
-
-# Re-export KernelRegression for convenience.
-from .metrics.local import KernelRegression  # noqa: E402

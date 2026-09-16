@@ -6,6 +6,14 @@ This module implements the kernel-density-based local discriminability score,
 The :class:`KernelRegression` class is **reproduced verbatim from the paper's
 supplementary material** and must not be refactored (it is checked against the
 printed listing in the manuscript).
+
+Implementation notes for the verbatim class
+-------------------------------------------
+* The variable ``l`` inside ``KernelRegression.score`` is intentionally kept
+  as printed in the paper; do not rename it.
+* If ``sig2`` is zero (identical samples within a class), ``D.div(-sig2)``
+  will produce ``inf``, leading to ``nan`` in the log.  Ensure input features
+  are not degenerate.
 """
 
 from __future__ import annotations
