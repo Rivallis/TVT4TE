@@ -14,6 +14,11 @@ evaluation versus 86.5 s for SFDA.
 
 ---
 
+## Supplementary materials
+Additional information relevant to the content of this manuscript is available at the following URL: 
+https://drive.google.com/file/d/1UoBPdE2rCalktXbS_CVu7y1jwZTDfzwC/view?usp=drive_link
+
+
 ## Installation
 
 ```bash
